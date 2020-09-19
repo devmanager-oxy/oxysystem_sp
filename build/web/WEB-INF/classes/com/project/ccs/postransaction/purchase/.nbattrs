@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="CmdPurchase_1.java">
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdPurchase_1"/>
+    </fileobject>
+    <fileobject name="DbPurchaseItem.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbPurchaseItem"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbPurchaseItem"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbPurchaseItem"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbPurchaseItem"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbPurchaseItem"/>
+    </fileobject>
+</attributes>

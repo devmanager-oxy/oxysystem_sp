@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="ARInvoice.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="ARInvoice"/>
+    </fileobject>
+    <fileobject name="CmdArPayment.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdArPayment"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdArPayment"/>
+    </fileobject>
+    <fileobject name="DbARInvoice.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbARInvoice"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbARInvoice"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbARInvoice"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbARInvoice"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbARInvoice"/>
+    </fileobject>
+    <fileobject name="DbARInvoiceDetail.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbARInvoiceDetail"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbARInvoiceDetail"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbARInvoiceDetail"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbARInvoiceDetail"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbARInvoiceDetail"/>
+    </fileobject>
+    <fileobject name="DbArPayment.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbArPayment"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbArPayment"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbArPayment"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbArPayment"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbArPayment"/>
+    </fileobject>
+    <fileobject name="JspArPayment.java">
+        <attr name="class_dependency_com.project.util.jsp.I_JSPInterface" stringvalue="JspArPayment"/>
+        <attr name="class_dependency_com.project.util.jsp.I_JSPType" stringvalue="JspArPayment"/>
+        <attr name="class_dependency_com.project.util.jsp.JSPHandler" stringvalue="JspArPayment"/>
+    </fileobject>
+</attributes>

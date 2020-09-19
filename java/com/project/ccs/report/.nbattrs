@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="RptIncomingGoodPdf.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptIncomingGoodPdf"/>
+    </fileobject>
+    <fileobject name="RptPoReturPdf.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptPoReturPdf"/>
+    </fileobject>
+    <fileobject name="RptPurchaseOrderPdf.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptPurchaseOrderPdf"/>
+    </fileobject>
+    <fileobject name="RptPurchaseRequestPdf.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptPurchaseRequestPdf"/>
+    </fileobject>
+    <fileobject name="SessIncomingGood.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessIncomingGood"/>
+    </fileobject>
+    <fileobject name="SessIncomingGoodL.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessIncomingGoodL"/>
+    </fileobject>
+    <fileobject name="SessPoRetur.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPoRetur"/>
+    </fileobject>
+    <fileobject name="SessPoReturL.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPoReturL"/>
+    </fileobject>
+    <fileobject name="SessPurchaseOrder.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPurchaseOrder"/>
+    </fileobject>
+    <fileobject name="SessPurchaseOrderL.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPurchaseOrderL"/>
+    </fileobject>
+    <fileobject name="SessPurchaseRequest.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPurchaseRequest"/>
+    </fileobject>
+    <fileobject name="SessPurchaseRequestL.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="SessPurchaseRequestL"/>
+    </fileobject>
+</attributes>

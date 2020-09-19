@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="CmdOpnameItem.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdOpnameItem"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdOpnameItem"/>
+    </fileobject>
+    <fileobject name="DbOpname.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbOpname"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbOpname"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbOpname"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbOpname"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbOpname"/>
+    </fileobject>
+    <fileobject name="DbOpnameItem.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbOpnameItem"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbOpnameItem"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbOpnameItem"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbOpnameItem"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbOpnameItem"/>
+    </fileobject>
+    <fileobject name="Opname.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="Opname"/>
+    </fileobject>
+    <fileobject name="OpnameItem.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="OpnameItem"/>
+    </fileobject>
+</attributes>

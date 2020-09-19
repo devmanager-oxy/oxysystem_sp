@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="CmdAssetData.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdAssetData"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdAssetData"/>
+    </fileobject>
+    <fileobject name="CmdAssetDataExtra.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdAssetDataExtra"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdAssetDataExtra"/>
+    </fileobject>
+    <fileobject name="DbAssetData.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbAssetData"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbAssetData"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbAssetData"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbAssetData"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbAssetData"/>
+    </fileobject>
+    <fileobject name="DbAssetDataDepresiasi.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbAssetDataDepresiasi"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbAssetDataDepresiasi"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbAssetDataDepresiasi"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbAssetDataDepresiasi"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbAssetDataDepresiasi"/>
+    </fileobject>
+    <fileobject name="DbAssetDataExtra.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbAssetDataExtra"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbAssetDataExtra"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbAssetDataExtra"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbAssetDataExtra"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbAssetDataExtra"/>
+    </fileobject>
+</attributes>

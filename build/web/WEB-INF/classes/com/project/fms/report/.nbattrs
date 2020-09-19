@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="RptAccPaymentActPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptAccPaymentActPDF"/>
+    </fileobject>
+    <fileobject name="RptAccPaymentPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptAccPaymentPDF"/>
+    </fileobject>
+    <fileobject name="RptBSDetailPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBSDetailPDF"/>
+    </fileobject>
+    <fileobject name="RptBSMultipleXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBSMultipleXLS"/>
+    </fileobject>
+    <fileobject name="RptBSStandard1XLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBSStandard1XLS"/>
+    </fileobject>
+    <fileobject name="RptBSStandardPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBSStandardPDF"/>
+    </fileobject>
+    <fileobject name="RptBSStandardXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBSStandardXLS"/>
+    </fileobject>
+    <fileobject name="RptBankDepositPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBankDepositPDF"/>
+    </fileobject>
+    <fileobject name="RptBanknonpoPaymentActPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBanknonpoPaymentActPDF"/>
+    </fileobject>
+    <fileobject name="RptBanknonpoPaymentPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBanknonpoPaymentPDF"/>
+    </fileobject>
+    <fileobject name="RptBankpoPaymentPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBankpoPaymentPDF"/>
+    </fileobject>
+    <fileobject name="RptBymhdPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptBymhdPDF"/>
+    </fileobject>
+    <fileobject name="RptCashReceiptPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptCashReceiptPDF"/>
+    </fileobject>
+    <fileobject name="RptCoaFlatXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptCoaFlatXLS"/>
+    </fileobject>
+    <fileobject name="RptDonorIFCCategoryPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorIFCCategoryPDF"/>
+    </fileobject>
+    <fileobject name="RptDonorIFCCategoryXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorIFCCategoryXLS"/>
+    </fileobject>
+    <fileobject name="RptDonorIFCGroupPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorIFCGroupPDF"/>
+    </fileobject>
+    <fileobject name="RptDonorIFCGroupXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorIFCGroupXLS"/>
+    </fileobject>
+    <fileobject name="RptDonorSummaryPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorSummaryPDF"/>
+    </fileobject>
+    <fileobject name="RptDonorSummaryXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorSummaryXLS"/>
+    </fileobject>
+    <fileobject name="RptDonorWorkplanXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptDonorWorkplanXLS"/>
+    </fileobject>
+    <fileobject name="RptGLActPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptGLActPDF"/>
+    </fileobject>
+    <fileobject name="RptGLPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptGLPDF"/>
+    </fileobject>
+    <fileobject name="RptGLStandardPDF.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptGLStandardPDF"/>
+    </fileobject>
+    <fileobject name="RptPotonganGaji2XLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptPotonganGaji2XLS"/>
+    </fileobject>
+    <fileobject name="RptPotonganGajiXLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptPotonganGajiXLS"/>
+    </fileobject>
+    <fileobject name="RptProfitLoss0XLS.java">
+        <attr name="class_dependency_javax.servlet.http.HttpServlet" stringvalue="RptProfitLoss0XLS"/>
+    </fileobject>
+</attributes>

@@ -1,0 +1,86 @@
+<!-- 
+    Document   : migration
+    Created on : Aug 23, 2020, 11:45:17 PM
+    Author     : Roy Andika
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>     
+      
+      CREATE TABLE `member` (
+  `member_id` bigint(20) NOT NULL default '0',
+  `nama` varchar(200) default NULL,
+  `alamat` varchar(200) default NULL,
+  `kabupaten_id` bigint(20) default '0',
+  `kecamatan_id` bigint(20) default '0',
+  `desa_id` bigint(20) default '0',
+  `kota_id` bigint(20) default '0',
+  `tgl_lahir` date default NULL,
+  `status` varchar(20) default NULL,
+  `phone` varchar(20) default NULL,
+  `hp` varchar(20) default NULL,
+  `pekerjaan_id` bigint(20) default '0',
+  `email` varchar(100) default NULL,
+  `nama_perusahaan` varchar(200) default NULL,
+  `alamat_perusahaan` varchar(200) default NULL,
+  `note` text,
+  `zip_code` varchar(10) default NULL,
+  `fax` varchar(18) default NULL,
+  `phone_area` varchar(5) default ' ',
+  `phone_perusahaan` varchar(20) default NULL,
+  `no_member` varchar(50) default NULL,
+  `nama_ahli_waris` varchar(128) default NULL,
+  `nama_penanggung` varchar(128) default NULL,
+  `sibuhar` int(2) default '0',
+  `simple` int(2) default '0',
+  `siraya` int(2) default '0',
+  `simapan` int(2) default '0',
+  `simp_rencana` int(2) default '0',
+  `sisuka` int(2) default '0',
+  `tambahan1` int(2) default '0',
+  `tambahan2` int(2) default '0',
+  `tambahan3` int(2) default '0',
+  `tambahan4` int(2) default '0',
+  `tambahan5` int(2) default '0',
+  `tambahan6` int(2) default '0',
+  `tambahan7` int(2) default '0',
+  `kuk` int(2) default '0',
+  `kmp` int(2) default '0',
+  `kip` int(2) default '0',
+  `ktm` int(2) default '0',
+  `kpp` int(2) default '0',
+  `kiper` int(2) default '0',
+  `kiperum` int(2) default '0',
+  `khusus` int(2) default '0',
+  `tambahan11` int(2) default '0',
+  `tambahan12` int(2) default '0',
+  `tambahan13` int(2) default '0',
+  `tambahan14` int(2) default '0',
+  `tambahan15` int(2) default '0',
+  `tambahan16` int(2) default '0',
+  `tambahan17` int(2) default '0',
+  `tambahan18` int(2) default '0',
+  `tambahan19` int(2) default '0',
+  `agama` varchar(45) default NULL,
+  `pendidikan` varchar(128) default NULL,
+  `jenis_kelamin` int(2) default '0',
+  `tgl_masuk` date default NULL,
+  `tgl_keluar` date default NULL,
+  `tgl_pendidikan` date default NULL,
+  `simpanan_pokok` decimal(10,2) default '0.00',
+  `status_pegawai` int(11) default NULL,
+  `dinas_id` bigint(20) default NULL,
+  `dinas_unit_id` bigint(20) default NULL,
+  PRIMARY KEY  (`member_id`),
+  UNIQUE KEY `XPKmember` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  
+  </body>
+</html>
+
+
+

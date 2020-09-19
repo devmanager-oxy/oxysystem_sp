@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="DbEmployee.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbEmployee"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbEmployee"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbEmployee"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbEmployee"/>
+    </fileobject>
+    <fileobject name="DbSection.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbSection"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbSection"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbSection"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbSection"/>
+    </fileobject>
+    <fileobject name="Department.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="Department"/>
+    </fileobject>
+    <fileobject name="Employee.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="Employee"/>
+    </fileobject>
+    <fileobject name="JspEmployee.java">
+        <attr name="class_dependency_com.project.util.jsp.I_JSPInterface" stringvalue="JspEmployee"/>
+        <attr name="class_dependency_com.project.util.jsp.I_JSPType" stringvalue="JspEmployee"/>
+        <attr name="class_dependency_com.project.util.jsp.JSPHandler" stringvalue="JspEmployee"/>
+    </fileobject>
+</attributes>

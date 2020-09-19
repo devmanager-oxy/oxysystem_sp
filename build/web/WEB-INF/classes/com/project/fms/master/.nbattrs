@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="AccLink.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="AccLink"/>
+    </fileobject>
+    <fileobject name="CmdAccLink.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdAccLink"/>
+    </fileobject>
+    <fileobject name="CmdCoa.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdCoa"/>
+    </fileobject>
+    <fileobject name="CmdUnitUsaha.java">
+        <attr name="class_dependency_com.project.util.jsp.Control" stringvalue="CmdUnitUsaha"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="CmdUnitUsaha"/>
+    </fileobject>
+    <fileobject name="CoaBudget.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="CoaBudget"/>
+    </fileobject>
+    <fileobject name="DbAccLink.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbAccLink"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbAccLink"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbAccLink"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbAccLink"/>
+    </fileobject>
+    <fileobject name="DbCoa.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbCoa"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbCoa"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbCoa"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbCoa"/>
+    </fileobject>
+    <fileobject name="DbCoaOpeningBalance.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbCoaOpeningBalance"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbCoaOpeningBalance"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbCoaOpeningBalance"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbCoaOpeningBalance"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbCoaOpeningBalance"/>
+    </fileobject>
+    <fileobject name="DbCoaPortofolioSetup.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbCoaPortofolioSetup"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbCoaPortofolioSetup"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbCoaPortofolioSetup"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbCoaPortofolioSetup"/>
+        <attr name="class_dependency_com.project.util.lang.I_Language" stringvalue="DbCoaPortofolioSetup"/>
+    </fileobject>
+    <fileobject name="DbDonor.java">
+        <attr name="SourceSync" bytevalue="0"/>
+    </fileobject>
+    <fileobject name="DbPeriode.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbPeriode"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbPeriode"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbPeriode"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbPeriode"/>
+    </fileobject>
+    <fileobject name="DbUnitUsaha.java">
+        <attr name="class_dependency_com.project.main.db.CONHandler" stringvalue="DbUnitUsaha"/>
+        <attr name="class_dependency_com.project.main.db.I_CONInterface" stringvalue="DbUnitUsaha"/>
+        <attr name="class_dependency_com.project.main.db.I_CONType" stringvalue="DbUnitUsaha"/>
+        <attr name="class_dependency_com.project.main.entity.I_PersintentExc" stringvalue="DbUnitUsaha"/>
+    </fileobject>
+    <fileobject name="UnitUsaha.java">
+        <attr name="class_dependency_com.project.main.entity.Entity" stringvalue="UnitUsaha"/>
+    </fileobject>
+</attributes>
