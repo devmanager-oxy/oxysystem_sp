@@ -239,6 +239,7 @@ Date srcTglLahir2 = JSPFormater.formatDate(srcTglEnd,"dd/MM/yyyy");
 int srcBatas = JSPRequestValue.requestInt(request, "src_batas");
 
 int srcStatus = JSPRequestValue.requestInt(request, "src_status");
+int showAll = JSPRequestValue.requestInt(request, "show_all");
 
 if(iJSPCommand==JSPCommand.NONE || iJSPCommand==JSPCommand.BACK){
 	srcBatas = 1;//biar tercheck
@@ -343,6 +344,20 @@ if (listMember.size() < 1 && start > 0)
 
 function cmdPrintAll(oidMember){	 
 	window.open("<%=printroot%>.report.MemberListPdf?oid=<%=oidMember%>&idx=<%=System.currentTimeMillis()%>");
+}
+
+function cmdUnShowAll(){
+    document.frmmember.command.value="<%=JSPCommand.LIST%>";
+    document.frmmember.show_all.value=0;
+    document.frmmember.action="scrmember.jsp";
+    document.frmmember.submit();
+}
+
+function cmdShowAll(){
+    document.frmmember.command.value="<%=JSPCommand.LIST%>";
+    document.frmmember.show_all.value=1;
+    document.frmmember.action="scrmember.jsp";
+    document.frmmember.submit();
 }
 
 function cmdAdd(){
@@ -498,6 +513,7 @@ function MM_swapImage() { //v3.0
                     <tr> 
                       <td><!-- #BeginEditable "content" --> 
                         <form name="frmmember" method ="post" action="">
+                          <input type="hidden" name="show_all" value="0">
                           <input type="hidden" name="command" value="<%=iJSPCommand%>">
                           <input type="hidden" name="vectSize" value="<%=vectSize%>">
                           <input type="hidden" name="start" value="<%=start%>">
@@ -691,6 +707,82 @@ function MM_swapImage() { //v3.0
                                     </td>
                                   </tr>
                                   <%}%>
+                                  <tr>
+                                      <td>&nbsp;</td>
+                                  </tr>
+                                  <!--History User-->
+                                  <tr>
+                                    <td colspan="2" height="25">
+                                        <table width="800" >
+                                            <tr>
+                                                <td width="120" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Date</i><b></td>
+                                                <td width="470" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Description</i><b></td>
+                                                <td bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>By</i><b></td>
+                                            </tr>
+                                            <%
+    int max = 10;
+    if (showAll == 1) {
+    max = 0;
+    }
+    int countx = DbHistoryUser.getCount(DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_SIMPANAN_ANGGOTA);
+    Vector historys = DbHistoryUser.list(0, max, DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_SIMPANAN_ANGGOTA, DbHistoryUser.colNames[DbHistoryUser.COL_DATE] + " desc");
+    if (historys != null && historys.size() > 0) {
+
+    for (int r = 0; r < historys.size(); r++) {
+    HistoryUser hu = (HistoryUser) historys.get(r);
+
+    Employee e = new Employee();
+    try {
+    e = DbEmployee.fetchExc(hu.getEmployeeId());
+    } catch (Exception ex) {
+    }
+    String name = "-";
+    if (e.getName() != null && e.getName().length() > 0) {
+    name = e.getName();
+    }
+                                            %>
+                                            <tr>
+                                                <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fontarial" style=padding:3px;><%=JSPFormater.formatDate(hu.getDate(), "dd MMM yyyy HH:mm:ss ")%></td>
+                                                <td class="fontarial" style=padding:3px;><i><%=hu.getDescription()%></i></td>
+                                                <td class="fontarial" style=padding:3px;><%=name%></td>
+                                            </tr>
+                                            <%
+                                                }
+
+                                            } else {
+                                            %>
+                                            <tr>
+                                                <td colspan="3" class="fontarial" style=padding:3px;><i>No history available</i></td>
+                                            </tr>
+                                            <%}%>
+                                            <tr>
+                                                <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                            </tr>
+                                            <%
+    if (countx > max) {
+    if (showAll == 0) {
+                                            %>
+                                            <tr>
+                                                <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdShowAll()"><i>Show All History (<%=countx%>) Data</i></a></td>
+                                            </tr>
+                                            <%
+                                                } else {
+                                            %>
+                                            <tr>
+                                                <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdUnShowAll()"><i>Show By Limit</i></a></td>
+                                            </tr>
+                                            <%
+    }
+    }%>
+
+                                        </table>
+
+
+                                    </td>
+                                </tr>
                                 </table>
                               </td>
                             </tr>

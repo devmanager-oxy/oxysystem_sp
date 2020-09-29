@@ -228,6 +228,9 @@ var usrDecSymbol = "<%=sUserDecimalSymbol%>";
 function cmdPrintXLS(){	 
 	window.open("<%=printroot%>.report.RptAnggotaPinjamBankXLS?idx=<%=System.currentTimeMillis()%>");
 }
+function cmdPrintPdf(){
+        window.open("<%=printroot%>.report.RptAnggotaPinjamBankPdf?idx=<%=System.currentTimeMillis()%>","",'scrollbars=yes,status=yes,width=750,height=600,resizable=yes');
+}
 
 function removeChar(number){
 	
@@ -509,15 +512,17 @@ function MM_swapImage() { //v3.0
                   <!-- #EndEditable --> </td>
                 <td width="100%" valign="top"> 
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr> 
-                      <td class="title"><!-- #BeginEditable "title" --><span class="level1">Keanggotaan</span> 
-                        &raquo; <span class="level1">Simpan Pinjam</span> &raquo; 
-                        <span class="level2">Pinjaman Bank 
-                        <%if(pinjaman.getOID()==0){%>
-                        Baru
-                        <%}%> - Angsuran Bunga Tetap
-                        <br>
-                        </span><!-- #EndEditable --></td>
+                     <tr>
+                        <td class="title"><!-- #BeginEditable "title" -->
+               <%
+               String isNew = "";
+               if(pinjaman.getOID()==0){
+                    isNew = "Baru";
+               }
+String navigator = "<font class=\"lvl1\">Pinjaman Anggota Ke Bank</font><font class=\"tit1\">&nbsp;&raquo;&nbsp;<span class=\"lvl2\">Pinjaman Bank "+ isNew +" - Angsuran Bunga Tetap</span></font>";
+               %>
+               <%@ include file="../main/navigatorsp.jsp"%>
+                        <!-- #EndEditable --></td>
                     </tr>
                     <!--tr> 
                       <td><img src="<%=approot%>/imagessp/title-sp.gif" width="584" height="1"></td> 
@@ -660,11 +665,18 @@ function MM_swapImage() { //v3.0
                                   <tr align="left"> 
                                     <td height="21" width="11%">Jenis Pinjaman</td>
                                     <td height="21" width="24%"> 
-                                      <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_BARANG] %>">
-                                        <%for(int i=0; i<DbPinjaman.strJenisBarang.length; i++){%>
-                                        <option value="<%=i%>" <%if(pinjaman.getJenisBarang()==i){%>selected<%}%>><%=DbPinjaman.strJenisBarang[i]%></option>
-                                        <%}%>
-                                      </select>
+                                      <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_PINJAMAN_ID] %>">
+                                            <%
+                                            JenisPinjaman jPinjaman = new JenisPinjaman();
+                                            Vector listJenisPinjaman = DbJenisPinjaman.list(0, 0, "", "");
+                                            for (int i = 0; i < listJenisPinjaman.size(); i++) {
+                                            try {
+                                                jPinjaman = (JenisPinjaman) listJenisPinjaman.get(i);
+                                            } catch (Exception e){}
+                                            %>
+                                            <option value="<%=jPinjaman.getOID()%>" <%if (jPinjaman.getOID() == pinjaman.getJenisPinjamanId()) {%>selected<%}%>><%=jPinjaman.getJenisPinjaman().toUpperCase()%></option>
+                                            <%}%>
+                                        </select>
                                     <td height="21" width="14%">Jatuh Tempo Setiap 
                                       Tanggal 
                                     <td height="21" width="51%"> 
@@ -1590,9 +1602,10 @@ function MM_swapImage() { //v3.0
                                   <tr align="left" > 
                                     <td colspan="4" valign="top"> 
                                       <table width="30%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr> 
-                                          <td><a href="javascript:cmdPrintXLS()"><img src="../images/print.gif" width="53" height="22" border="0"></a></td>
-                                          <td>&nbsp;</td>
+                                        <tr>
+                                            <td><a href="javascript:cmdPrintXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a></td>
+                                            <td>&nbsp;</td>
+                                            <td><a href="javascript:cmdPrintPdf()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('printpdf','','../images/exportpdf2.png',1)"><img src="../images/exportpdf.png" name="printpdf" border="0"></a></td>
                                         </tr>
                                       </table>
                                       &nbsp;</td>

@@ -232,8 +232,12 @@
             var usrDecSymbol = "<%=sUserDecimalSymbol%>";
             
             function cmdPrintXLS(){	 
-                window.open("<%=printroot%>.report.RptPinjamanAnggotaXLS?idx=<%=System.currentTimeMillis()%>");
-                }
+                window.open("<%=printrootsp%>.report.RptPinjamanAnggotaXLS?idx=<%=System.currentTimeMillis()%>");
+            }
+
+            function cmdPrintPdf(){
+                window.open("<%=printrootsp%>.report.RptPinjamanAnggotaPdf?idx=<%=System.currentTimeMillis()%>","",'scrollbars=yes,status=yes,width=750,height=600,resizable=yes');
+            }
                 
                 function removeChar(number){
                     
@@ -599,9 +603,16 @@
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Jenis Pinjaman</td>
                                                                             <td height="21" width="24%"> 
-                                                                            <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_BARANG] %>">
-                                                                                <%for (int i = 0; i < DbPinjaman.strJenisBarang.length; i++) {%>
-                                                                                <option value="<%=i%>" <%if (pinjaman.getJenisBarang() == i) {%>selected<%}%>><%=DbPinjaman.strJenisBarang[i]%></option>
+                                                                            <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_PINJAMAN_ID] %>">
+                                                                                <%
+                                                                                JenisPinjaman jPinjaman = new JenisPinjaman();
+                                                                                Vector listJenisPinjaman = DbJenisPinjaman.list(0, 0, "", "");
+                                                                                for (int i = 0; i < listJenisPinjaman.size(); i++) {
+                                                                                try {
+                                                                                    jPinjaman = (JenisPinjaman) listJenisPinjaman.get(i);
+                                                                                } catch (Exception e){}
+                                                                                %>
+                                                                                <option value="<%=jPinjaman.getOID()%>" <%if (jPinjaman.getOID() == pinjaman.getJenisPinjamanId()) {%>selected<%}%>><%=jPinjaman.getJenisPinjaman().toUpperCase()%></option>
                                                                                 <%}%>
                                                                             </select>
                                                                             <td height="21" width="14%">Jatuh Tempo Setiap 
@@ -1378,9 +1389,10 @@
                                                                                 <td colspan="4" valign="top"> 
                                                                                     <table width="30%" border="0" cellspacing="0" cellpadding="0">
                                                                                         <tr> 
-                                                                                            <td><a href="javascript:cmdPrintXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a>
-                                                                                                </a></td>
+                                                                                            <td><a href="javascript:cmdPrintXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a></td>
                                                                                             <td>&nbsp;</td>
+
+                                                                                            <td><a href="javascript:cmdPrintPdf()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('printpdf','','../images/exportpdf2.png',1)"><img src="../images/exportpdf.png" name="printpdf" border="0"></a></td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 &nbsp;</td>

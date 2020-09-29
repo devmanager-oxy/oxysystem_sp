@@ -53,6 +53,7 @@ public class JspPinjaman extends JSPHandler implements I_JSPInterface, I_JSPType
         public static final int JSP_COA_TITIPAN_DEBET_ID			=  32 ;
         public static final int JSP_COA_TITIPAN_CREDIT_ID			=  33 ;
         public static final int JSP_ANGSURAN_TERAKHIR   			=  34 ;
+        public static final int JSP_JENIS_PINJAMAN_ID   			=  35 ;
 
 	public static String[] colNames = {
 		"JSP_MEMBER_ID",  "JSP_PINJAMAN_ID",
@@ -74,7 +75,7 @@ public class JspPinjaman extends JSPHandler implements I_JSPInterface, I_JSPType
                 "JSP_COA_PROVISI_DEBET_ID", "JSP_COA_PROVISI_CREDIT_ID",
                 "JSP_COA_ASURANSI_DEBET_ID", "JSP_COA_ASURANSI_CREDIT_ID",
                 "JSP_COA_TITIPAN_DEBET_ID", "JSP_COA_TITIPAN_CREDIT_ID",
-                "JSP_ANGSURAN_TERAKHIR"
+                "JSP_ANGSURAN_TERAKHIR", "JSP_JENIS_PINJAMAN_ID"
                 
 	} ;
 
@@ -98,7 +99,7 @@ public class JspPinjaman extends JSPHandler implements I_JSPInterface, I_JSPType
                 TYPE_LONG, TYPE_LONG,
                 TYPE_LONG, TYPE_LONG,
                 TYPE_LONG, TYPE_LONG,
-                TYPE_INT
+                TYPE_INT, TYPE_LONG
                 
 	} ;
 
@@ -160,6 +161,7 @@ public class JspPinjaman extends JSPHandler implements I_JSPInterface, I_JSPType
                         pinjaman.setCoaTitipanDebetId(getLong(JSP_COA_TITIPAN_DEBET_ID));
                         pinjaman.setCoaTitipanCreditId(getLong(JSP_COA_TITIPAN_CREDIT_ID));
                         pinjaman.setAngsuranTerakhir(getInt(JSP_ANGSURAN_TERAKHIR));
+                        pinjaman.setJenisPinjamanId(getLong(JSP_JENIS_PINJAMAN_ID));
                         
 		}catch(Exception e){
 			System.out.println("Error on requestEntityObject : "+e.toString());

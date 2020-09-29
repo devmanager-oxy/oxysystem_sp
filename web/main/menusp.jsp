@@ -445,12 +445,28 @@
                     <td class="submenutd">
                         <table width="99%" cellpadding="0" cellspacing="0" class="submenu1">
                             <%if (spMasterAnggota) {%>
+                            <tr>
+                                <td height="18" width="90%" class="menu1">Anggota</td>
+                            </tr>
                             <tr> 
-                                <td height="18" width="90%" class="menu1"><a href="<%=approot%>/member/scrmember.jsp?menu_idx=4">Daftar 
+                                <td height="18" width="90%" class="menu2"><a href="<%=approot%>/member/scrmember.jsp?menu_idx=4">Daftar
                                 Anggota</a></td>
                             </tr>
                             <tr> 
-                                <td height="18" width="90%" class="menu1"><a href="<%=approot%>/member/member.jsp?menu_idx=4">Anggota 
+                                <td height="18" width="90%" class="menu2"><a href="<%=approot%>/member/member.jsp?menu_idx=4">Anggota
+                                Baru</a></td>
+                            </tr>
+                            <%}%>
+                            <%if (true) {%>
+                            <tr>
+                                <td height="18" width="90%" class="menu1">Jenis Pinjaman</td>
+                            </tr>
+                            <tr>
+                                <td height="18" width="90%" class="menu2"><a href="<%=approot%>/pinjaman/scrjenispinjaman.jsp?menu_idx=4">Daftar
+                                Jenis Pinjaman</a></td>
+                            </tr>
+                            <tr>
+                                <td height="18" width="90%" class="menu2"><a href="<%=approot%>/pinjaman/jenispinjaman.jsp?menu_idx=4">Jenis Pinjaman
                                 Baru</a></td>
                             </tr>
                             <%}%>

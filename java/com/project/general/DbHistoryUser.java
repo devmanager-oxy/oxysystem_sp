@@ -61,6 +61,8 @@ public class DbHistoryUser extends CONHandler implements I_CONInterface, I_CONTy
     public static final int TYPE_CURRENCY = 11;
     public static final int TYPE_STOCK_DAYS = 12;
     public static final int TYPE_USER_SIPADU = 13;
+    public static final int TYPE_DATA_ANGGOTA = 14;
+    public static final int TYPE_SIMPANAN_ANGGOTA = 15;
 
     public DbHistoryUser() {
     }

@@ -27,6 +27,7 @@ int start = JSPRequestValue.requestInt(request, "start");
 int prevJSPCommand = JSPRequestValue.requestInt(request, "prev_command");
 long oidSimpananMember = JSPRequestValue.requestLong(request, "hidden_simpanan_member_id");
 long periodId = JSPRequestValue.requestLong(request, "hidden_periode_id");
+int showAll = JSPRequestValue.requestInt(request, "show_all");
 
 if(start<0){
 	start = 0;
@@ -91,6 +92,35 @@ if((iJSPCommand == JSPCommand.FIRST || iJSPCommand == JSPCommand.PREV )||
 
 SimpananMember simpananMember = ctrlSimpananMember.getSimpananMember();
 msgString =  ctrlSimpananMember.getMessage();
+
+//Proses add log
+if (iJSPCommand == JSPCommand.SAVE && iErrCode == 0){
+    String desc = "Simpanan Anggota : " + member.getNama();
+    if(simpananMember.getTanggal()!=null){
+        desc = desc + ", Tanggal : " + JSPFormater.formatDate(simpananMember.getTanggal(),"dd-MM-yyyy");
+    }
+    if(simpananMember.getPokok()!=0){
+        desc = desc + ", Simpanan Pokok : " + JSPFormater.formatNumber(simpananMember.getPokok(),"#,###.##");
+    }
+    if(simpananMember.getWajib()!=0){
+        desc = desc + ", Simpanan Wajib : " + JSPFormater.formatNumber(simpananMember.getWajib(),"#,###.##");
+    }
+    if (simpananMember.getKeterangan()!=null || simpananMember.getKeterangan() != ""){
+        desc = desc  + ", Keterangan : " + simpananMember.getKeterangan();
+    }
+
+    HistoryUser hisUser = new HistoryUser();
+    hisUser.setUserId(user.getOID());
+    hisUser.setEmployeeId(user.getEmployeeId());
+    hisUser.setRefId(member.getOID());
+    hisUser.setDescription(desc);
+    hisUser.setType(DbHistoryUser.TYPE_SIMPANAN_ANGGOTA);
+    hisUser.setDate(new Date());
+    try {
+        DbHistoryUser.insertExc(hisUser);
+    } catch (Exception e) {
+    }
+}
 
 /* get record to display */
 listSimpananMember = DbSimpananMember.list(start,recordToGet, whereClause , orderClause);
@@ -162,6 +192,20 @@ function cmdAdd(){
 	document.frmsimpananmember.prev_command.value="<%=prevJSPCommand%>";
 	document.frmsimpananmember.action="simpananmember.jsp";
 	document.frmsimpananmember.submit();
+}
+
+function cmdUnShowAll(){
+    document.frmsimpananmember.command.value="<%=JSPCommand.EDIT%>";
+    document.frmsimpananmember.show_all.value=0;
+    document.frmsimpananmember.action="simpananmember.jsp";
+    document.frmsimpananmember.submit();
+}
+
+function cmdShowAll(){
+    document.frmsimpananmember.command.value="<%=JSPCommand.EDIT%>";
+    document.frmsimpananmember.show_all.value=1;
+    document.frmsimpananmember.action="simpananmember.jsp";
+    document.frmsimpananmember.submit();
 }
 
 function cmdAsk(oidSimpananMember){
@@ -305,6 +349,7 @@ function MM_swapImage() { //v3.0
                     <tr> 
                       <td><!-- #BeginEditable "content" --> 
                         <form name="frmsimpananmember" method ="post" action="">
+                          <input type="hidden" name="show_all" value="0">
                           <input type="hidden" name="command" value="<%=iJSPCommand%>">
                           <input type="hidden" name="vectSize" value="<%=vectSize%>">
                           <input type="hidden" name="start" value="<%=start%>">
@@ -858,36 +903,6 @@ function MM_swapImage() { //v3.0
                                                     <tr> 
                                                       <td colspan="8">&nbsp; </td>
                                                     </tr>
-                                                    <tr> 
-                                                      <td width="4%">&nbsp;</td>
-                                                      <td width="10%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="14%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="32%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr> 
-                                                      <td width="4%">&nbsp;</td>
-                                                      <td width="10%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="14%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="32%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr> 
-                                                      <td width="4%">&nbsp;</td>
-                                                      <td width="10%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="11%">&nbsp;</td>
-                                                      <td width="14%">&nbsp;</td>
-                                                      <td width="9%">&nbsp;</td>
-                                                      <td width="32%">&nbsp;</td>
-                                                    </tr>
                                                   </table>
                                                 </td>
                                               </tr>
@@ -897,6 +912,77 @@ function MM_swapImage() { //v3.0
                                                 <td width="6%">&nbsp;</td>
                                                 <td width="63%">&nbsp;</td>
                                               </tr>
+
+                                              <!--History User -->
+                                              <tr>
+                                                  <td colspan="3">
+                                                      <table width="800" >
+                                                          <tr>
+                                                              <td width="120" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Date</i></b></td>
+                                                              <td width="470" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Description</i></b></td>
+                                                              <td bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>By</i></b></td>
+                                                          </tr>
+                                                          <%
+int max = 10;
+if (showAll == 1) {
+    max = 0;
+}
+int countx = DbHistoryUser.getCount(DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_SIMPANAN_ANGGOTA+" and " + DbHistoryUser.colNames[DbHistoryUser.COL_REF_ID] + " = " + memberId);
+Vector historys = DbHistoryUser.list(0, max, DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_SIMPANAN_ANGGOTA+" and " + DbHistoryUser.colNames[DbHistoryUser.COL_REF_ID] + " = " + memberId, DbHistoryUser.colNames[DbHistoryUser.COL_DATE] + " desc");
+if (historys != null && historys.size() > 0) {
+
+    for (int r = 0; r < historys.size(); r++) {
+        HistoryUser hu = (HistoryUser) historys.get(r);
+
+        Employee e = new Employee();
+        try {
+            e = DbEmployee.fetchExc(hu.getEmployeeId());
+        } catch (Exception ex) {
+        }
+        String name = "-";
+        if (e.getName() != null && e.getName().length() > 0) {
+            name = e.getName();
+        }
+                                                          %>
+                                                          <tr>
+                                                              <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td class="fontarial" style=padding:3px;><%=JSPFormater.formatDate(hu.getDate(), "dd MMM yyyy HH:mm:ss ")%></td>
+                                                              <td class="fontarial" style=padding:3px;><i><%=hu.getDescription()%></i></td>
+                                                              <td class="fontarial" style=padding:3px;><%=name%></td>
+                                                          </tr>
+                                                          <%
+                                                              }
+
+                                                          } else {
+                                                          %>
+                                                          <tr>
+                                                              <td colspan="3" class="fontarial" style=padding:3px;><i>No history available</i></td>
+                                                          </tr>
+                                                          <%}%>
+                                                          <tr>
+                                                              <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                                          </tr>
+                                                          <%
+if (countx > max) {
+if (showAll == 0) {
+                                                          %>
+                                                          <tr>
+                                                              <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdShowAll()"><i>Show All History (<%=countx%>) Data</i></a></td>
+                                                          </tr>
+                                                          <%
+                                                              } else {
+                                                          %>
+                                                          <tr>
+                                                              <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdUnShowAll()"><i>Show By Limit</i></a></td>
+                                                          </tr>
+                                                          <%
+}
+}%>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                             </table>
                                           </td>
                                         </tr>

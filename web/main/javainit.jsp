@@ -13,6 +13,7 @@
 
 //offline
             String approot = "/oxysystem_sp";
+            String approotx = "/oxysystem_sp";
             String imageroot = "/oxysystem_sp/";
             String printroot = "/oxysystem_sp/servlet/com.project.fms";
             String printrootsp = "/oxysystem_sp/servlet/com.project.coorp";

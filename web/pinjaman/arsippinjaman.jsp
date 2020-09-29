@@ -202,11 +202,13 @@ function MM_swapImage() { //v3.0
                   <!-- #EndEditable --> </td>
                 <td width="100%" valign="top"> 
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr> 
-                      <td class="title"><!-- #BeginEditable "title" --><span class="level1">Keanggotaan</span> 
-                        &raquo; <span class="level1">Simpan Pinjam</span> &raquo; 
-                        <span class="level2">Pencarian Arsip<br>
-                        </span><!-- #EndEditable --></td>
+                    <tr>
+                        <td class="title"><!-- #BeginEditable "title" -->
+               <%
+String navigator = "<font class=\"lvl1\">Pinjaman Anggota Ke Koperasi</font><font class=\"tit1\">&nbsp;&raquo;&nbsp;<span class=\"lvl2\">Arsip</span></font>";
+               %>
+               <%@ include file="../main/navigatorsp.jsp"%>
+                        <!-- #EndEditable --></td>
                     </tr>
                     <!--tr> 
                       <td><img src="<%=approot%>/imagessp/title-sp.gif" width="584" height="1"></td> 

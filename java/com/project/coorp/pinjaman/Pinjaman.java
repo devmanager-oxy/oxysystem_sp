@@ -23,6 +23,7 @@ public class Pinjaman extends Entity {
 	private int lamaCicilan;
 	private int type;
 	private long bankId;
+        private long jenisPinjamanId;
 
         /**
          * Holds value of property tanggalJatuhTempo.
@@ -572,5 +573,13 @@ public class Pinjaman extends Entity {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-        
+
+    public long getJenisPinjamanId() {
+        return jenisPinjamanId;
+    }
+
+    public void setJenisPinjamanId(long jenisPinjamanId) {
+        this.jenisPinjamanId = jenisPinjamanId;
+    }
+    
 }

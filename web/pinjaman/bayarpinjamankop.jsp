@@ -443,17 +443,20 @@
                                                                                 <td  width="20%"> 
                                                                                 <input type="text" name="<%=JspBayarPinjaman.colNames[JspBayarPinjaman.JSP_AMOUNT]%>" value="<%=JSPFormater.formatNumber(bayarPinjaman.getAmount(), "#,###.##")%>" class="formElemen" style="text-align:right"  onBlur="javascript:checkNumber(this)" onClick="this.select()" <%if (pinjaman.getJenisCicilan() == DbPinjaman.JENIS_CICILAN_TETAP) {%>readOnly<%}%>>
                                                                                        * <%=jspBayarPinjaman.getErrorMsg(JspBayarPinjaman.JSP_AMOUNT)%></td>
-                                                                                <td  width="13%" bgcolor="#F5F5F5"> 
+                                                                                <%if(false){%>
+                                                                                <td  width="13%" bgcolor="#F5F5F5">
                                                                                     <div align="center"><b>Detail Journal </b></div>
                                                                                 </td>
                                                                                 <td  width="56%">&nbsp;</td>
+                                                                                <%}%>
                                                                             </tr>
                                                                             <tr align="left"> 
                                                                                 <td width="11%"  >Bunga</td>
                                                                                 <td  width="20%"> 
                                                                                 <input type="text" name="<%=JspBayarPinjaman.colNames[JspBayarPinjaman.JSP_BUNGA]%>" value="<%=JSPFormater.formatNumber(bayarPinjaman.getBunga(), "#,###.##")%>" class="formElemen" onBlur="javascript:checkNumber1(this)" style="text-align:right" onClick="this.select()" <%if (pinjaman.getJenisCicilan() == DbPinjaman.JENIS_CICILAN_TETAP) {%>readOnly<%}%>>
                                                                                        * <%=jspBayarPinjaman.getErrorMsg(JspBayarPinjaman.JSP_BUNGA)%></td>
-                                                                                <td colspan="2" rowspan="6" valign="top"> 
+                                                                                <td colspan="2" rowspan="6" valign="top">
+                                                                                    <%if(false){%>
                                                                                     <table width="80%" border="0" cellspacing="1" cellpadding="1">
                                                                                         <tr bgcolor="#E1E1E1"> 
                                                                                             <td width="30%" height="21"><b>Keterangan</b></td>
@@ -752,6 +755,7 @@
                                                                                             <td width="36%">&nbsp;</td>
                                                                                         </tr>
                                                                                     </table>
+                                                                                    <%}%>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr align="left"> 

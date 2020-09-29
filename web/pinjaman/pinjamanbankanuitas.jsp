@@ -1,4 +1,6 @@
 
+<%@page import="com.project.coorp.report.RptAnggotaPinjamBankAnuitasL"%>
+<%@page import="com.project.coorp.report.RptAnggotaPinjamBankAnuitas"%>
 <%@ page language = "java" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.sql.*" %>
@@ -102,6 +104,13 @@
 
 %>
 <%
+            if (session.getValue("KONSTAN") != null) {
+                session.removeValue("KONSTAN");
+            }
+
+            if (session.getValue("DETAIL") != null) {
+                session.removeValue("DETAIL");
+            }
             int iJSPCommand = JSPRequestValue.requestCommand(request);
             int start = JSPRequestValue.requestInt(request, "start");
             int prevJSPCommand = JSPRequestValue.requestInt(request, "prev_command");
@@ -135,6 +144,9 @@
             int vectSize = DbPinjaman.getCount(whereClause);
 
             Pinjaman pinjaman = ctrlPinjaman.getPinjaman();
+
+            RptAnggotaPinjamBankAnuitas rptKonstan = new RptAnggotaPinjamBankAnuitas();
+            Vector vTemp = new Vector();
 
             if (oidPinjaman == 0) {
                 oidPinjaman = pinjaman.getOID();
@@ -216,6 +228,14 @@
             var sysDecSymbol = "<%=sSystemDecimalSymbol%>";
             var usrDigitGroup = "<%=sUserDigitGroup%>";
             var usrDecSymbol = "<%=sUserDecimalSymbol%>";
+
+            function cmdPrintXLS(){
+                window.open("<%=printrootsp%>.report.RptAnggotaPinjamBankAnuitasXLS?idx=<%=System.currentTimeMillis()%>");
+            }
+
+            function cmdPrintPdf(){
+                window.open("<%=printrootsp%>.report.RptAnggotaPinjamBankAnuitasPdf?idx=<%=System.currentTimeMillis()%>","",'scrollbars=yes,status=yes,width=750,height=600,resizable=yes');
+            }
             
             function removeChar(number){
                 
@@ -504,23 +524,17 @@
                                         <!-- #EndEditable --> </td>
                                         <td width="100%" valign="top"> 
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tr> 
-                                                    <td class="title"><!-- #BeginEditable "title" -->
-                                           <%
-            String navigator = "<font class=\"lvl1\">Master Data</font><font class=\"tit1\">&nbsp;&raquo;&nbsp;<span class=\"lvl2\">Daftar Anggota</span></font>";
-                                           %>
-                                           <%@ include file="../main/navigatorsp.jsp"%>
-                                                    <!-- #EndEditable --></td>
-                                                </tr>
-                                                <tr> 
-                                                    <td class="title"><!-- #BeginEditable "title" --><span class="level1">Keanggotaan</span> 
-                                                        &raquo; <span class="level1">Simpan Pinjam</span> &raquo; 
-                                                        <span class="level2">Pinjaman Bank 
-                                                            <%if (pinjaman.getOID() == 0) {%>
-                                                            Baru 
-                                                            <%}%>
-                                                            - Angsuran Bunga Anuitas<br>
-                                                    </span><!-- #EndEditable --></td>
+                                                <tr>
+                                                        <td class="title"><!-- #BeginEditable "title" -->
+                                               <%
+                                               String isNew = "";
+                                               if(pinjaman.getOID()==0){
+                                                    isNew = "Baru";
+                                               }
+                                String navigator = "<font class=\"lvl1\">Pinjaman Anggota Ke Bank</font><font class=\"tit1\">&nbsp;&raquo;&nbsp;<span class=\"lvl2\">Pinjaman Bank "+ isNew +" - Angsuran Bunga Anuitas</span></font>";
+                                               %>
+                                               <%@ include file="../main/navigatorsp.jsp"%>
+                                                        <!-- #EndEditable --></td>
                                                 </tr>
                                                 <!--tr> 
                       <td><img src="<%=approot%>/imagessp/title-sp.gif" width="584" height="1"></td> 
@@ -563,6 +577,9 @@
                 } catch (Exception e) {
                 }
                 str = m.getNoMember() + "/" + m.getNama();
+
+                rptKonstan.setPeminjam(m.getNama());
+                rptKonstan.setNik(m.getNoMember());
             }
 
                                                                                         %>
@@ -587,92 +604,114 @@
             }
                                                                             %>
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_NUMBER] %>"  value="<%= pinjaman.getNumber() %>" class="formElemen">
-                                                                            <tr align="left"> 
+                                                                            <%rptKonstan.setNoRekening(pinjaman.getNumber());%>
+                                                                            <tr align="left">
                                                                             <td height="21" width="11%">Bank</td>
                                                                             <td height="21" width="24%"> 
                                                                             <select name="<%=jspPinjaman.colNames[jspPinjaman.JSP_BANK_ID]%>">
                                                                                 <%
+                                                                                String bankName = "";
             if (listBank != null && listBank.size() > 0) {
                 for (int i = 0; i < listBank.size(); i++) {
                     Bank bank = (Bank) listBank.get(i);
                                                                                 %>
-                                                                                <option value="<%=bank.getOID()%>" <%if (bank.getOID() == pinjaman.getBankId()) {%>selected<%}%>><%=bank.getName()%></option>
+                                                                                <option value="<%=bank.getOID()%>" <%if (bank.getOID() == pinjaman.getBankId()) { bankName = bank.getName();%>selected<%}%>><%=bank.getName()%></option>
                                                                                 <%
                 }
             }%>
                                                                             </select>
-                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TOTAL_PINJAMAN) %> 
+                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TOTAL_PINJAMAN) %>
+                                                                            <%rptKonstan.setBank(bankName);%>
                                                                             <td height="21" width="14%">&nbsp; 
                                                                             <td height="21" width="51%">&nbsp; 
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Tanggal</td>
                                                                             <td height="21" width="24%"> 
                                                                             <input name="<%=jspPinjaman.colNames[JspPinjaman.JSP_DATE] %>" value="<%=JSPFormater.formatDate((pinjaman.getDate() == null) ? new Date() : pinjaman.getDate(), "dd/MM/yyyy")%>" size="11" readonly>
-                                                                            <a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.frmpinjaman.<%=jspPinjaman.colNames[JspPinjaman.JSP_DATE] %>);return false;" ><img class="PopcalTrigger" align="absmiddle" src="<%=approot%>/calendar/calbtn.gif" height="19" border="0" alt=""></a> 
+                                                                            <%rptKonstan.setTanggal(pinjaman.getDate());%>
+                                                                            <a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.frmpinjaman.<%=jspPinjaman.colNames[JspPinjaman.JSP_DATE] %>);return false;" ><img class="PopcalTrigger" align="absmiddle" src="<%=approot%>/calendar/calbtn.gif" height="19" border="0" alt=""></a>
                                                                             <td height="21" width="14%">&nbsp; 
                                                                             <td height="21" width="51%">&nbsp; 
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Total Pinjaman</td>
                                                                             <td height="21" width="24%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_TOTAL_PINJAMAN] %>"  value="<%= JSPFormater.formatNumber(pinjaman.getTotalPinjaman(), "#,###.##") %>" class="formElemen" style="text-align:right" onBlur="javascript:checkNumber(this)" onClick="this.select()" onChange="javascript:cmdChangeType()">
-                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TOTAL_PINJAMAN) %> 
-                                                                            <td height="21" width="14%">Bunga Pinjaman 
+                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TOTAL_PINJAMAN) %>
+                                                                            <%rptKonstan.setTotalPinjaman(pinjaman.getTotalPinjaman());%>
+                                                                            <td height="21" width="14%">Bunga Pinjaman
                                                                             Koperasi 
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_BUNGA] %>"  value="<%= pinjaman.getBunga() %>" class="formElemen" size="10"  style="text-align:right" onBlur="javascript:checkNumber1(this)" onClick="this.select()" onChange="javascript:cmdChangeType()">
-                                                                            % /tahun * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_BUNGA) %> 
-                                                                            <tr align="left"> 
+                                                                            % /tahun * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_BUNGA) %>
+                                                                            <%rptKonstan.setBungaPinjamanKoperasi(pinjaman.getBunga());%>
+                                                                            <tr align="left">
                                                                             <td height="21" width="11%">Biaya Administrasi</td>
                                                                             <td height="21" width="24%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_BIAYA_ADMINISTRASI] %>"  value="<%= JSPFormater.formatNumber(pinjaman.getBiayaAdministrasi(), "#,###.##") %>" class="formElemen"  style="text-align:right" onBlur="javascript:checkNumber(this)" onClick="this.select()">
-                                                                            <td height="21" width="14%">Bunga Pinjaman 
+                                                                            <%rptKonstan.setBiayaAdministrasi(pinjaman.getBiayaAdministrasi());%>
+                                                                            <td height="21" width="14%">Bunga Pinjaman
                                                                             Bank 
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_BUNGA_BANK] %>"  value="<%= pinjaman.getBungaBank() %>" class="formElemen" size="10"  style="text-align:right" onBlur="javascript:checkNumber1(this)" onClick="this.select()">
-                                                                            % /tahun * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_BUNGA_BANK) %> 
-                                                                            <tr align="left"> 
+                                                                            % /tahun * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_BUNGA_BANK) %>
+                                                                            <%rptKonstan.setBungaPinjamanBank(pinjaman.getBungaBank());%>
+                                                                            <tr align="left">
                                                                             <td height="21" width="11%">Biaya Provisi</td>
                                                                             <td height="21" width="24%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_PROVISI] %>"  value="<%= JSPFormater.formatNumber(pinjaman.getProvisi(), "#,###.##") %>" class="formElemen"  style="text-align:right" onBlur="javascript:checkNumber(this)" onClick="this.select()">
-                                                                            <td height="21" width="14%">Lama Angsuran 
+                                                                            <%rptKonstan.setBiayaProvisi(pinjaman.getProvisi());%>
+                                                                            <td height="21" width="14%">Lama Angsuran
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_LAMA_CICILAN] %>"  value="<%= pinjaman.getLamaCicilan() %>" class="formElemen" size="10" onBlur="javascript:checkNumber1(this)" style="text-align:right" onClick="this.select()" onChange="javascript:cmdChangeType()">
-                                                                            bulan * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_LAMA_CICILAN) %> 
+                                                                            bulan * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_LAMA_CICILAN) %>
+                                                                            <%rptKonstan.setLamaAngsuran(pinjaman.getLamaCicilan());%>
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Biaya Asuransi</td>
                                                                             <td height="21" width="24%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_BIAYA_ADMINISTRASI] %>3"  value="<%= JSPFormater.formatNumber(pinjaman.getBiayaAdministrasi(), "#,###.##") %>" class="formElemen"  style="text-align:right" onBlur="javascript:checkNumber(this)" onClick="this.select()">
-                                                                            <td height="21" width="14%">Besar Angsuran 
+                                                                            <%rptKonstan.setBiayaAsuransi(pinjaman.getBiayaAdministrasi());%>
+                                                                            <td height="21" width="14%">Besar Angsuran
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_CICILAN] %>"  value="<%= JSPFormater.formatNumber(pinjaman.getCicilan(), "#,###.##") %>" class="formElemen"  style="text-align:right" onBlur="javascript:checkNumber(this)" onClick="this.select()">
-                                                                            <tr align="left"> 
+                                                                            <%rptKonstan.setBesarAngsuran(pinjaman.getCicilan());%><tr align="left">
                                                                             <td height="21" width="11%">&nbsp;</td>
                                                                             <td height="21" width="24%">&nbsp; 
                                                                             <td height="21" width="14%" nowrap>Angsuran 
                                                                             Terbayar Sampai Ke 
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_ANGSURAN_TERAKHIR] %>" size="10" value="<%= JSPFormater.formatNumber(pinjaman.getAngsuranTerakhir(), "###") %>" class="formElemen"  style="text-align:right" onBlur="javascript:checkNumber1(this)" onClick="this.select()">
-                                                                            <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_ANGSURAN_TERAKHIR) %> 
+                                                                            <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_ANGSURAN_TERAKHIR) %>
+                                                                            <%rptKonstan.setAngsuranTerakhir(pinjaman.getAngsuranTerakhir());%>
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Jenis Pinjaman</td>
                                                                             <td height="21" width="24%"> 
-                                                                            <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_BARANG] %>">
-                                                                                <%for (int i = 0; i < DbPinjaman.strJenisBarang.length; i++) {%>
-                                                                                <option value="<%=i%>" <%if (pinjaman.getJenisBarang() == i) {%>selected<%}%>><%=DbPinjaman.strJenisBarang[i]%></option>
+                                                                            <select name="<%=jspPinjaman.colNames[JspPinjaman.JSP_JENIS_PINJAMAN_ID] %>">
+                                                                                <%
+                                                                                JenisPinjaman jPinjaman = new JenisPinjaman();
+                                                                                Vector listJenisPinjaman = DbJenisPinjaman.list(0, 0, "", "");
+                                                                                for (int i = 0; i < listJenisPinjaman.size(); i++) {
+                                                                                try {
+                                                                                    jPinjaman = (JenisPinjaman) listJenisPinjaman.get(i);
+                                                                                } catch (Exception e){}
+                                                                                %>
+                                                                                <option value="<%=jPinjaman.getOID()%>" <%if (jPinjaman.getOID() == pinjaman.getJenisPinjamanId()) {%>selected<%}%>><%=jPinjaman.getJenisPinjaman().toUpperCase()%></option>
                                                                                 <%}%>
                                                                             </select>
+                                                                                <%rptKonstan.setJenisPinjaman(pinjaman.getJenisBarang());%>
                                                                             <td height="21" width="14%">Jatuh Tempo Setiap 
                                                                             Tanggal 
                                                                             <td height="21" width="51%"> 
                                                                             <input type="text" name="<%=jspPinjaman.colNames[JspPinjaman.JSP_TANGGAL_JATUH_TEMPO] %>"  value="<%= pinjaman.getTanggalJatuhTempo() %>" class="formElemen" size="10"  onBlur="javascript:checkNumber1(this)" style="text-align:right" onClick="this.select()">
-                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TANGGAL_JATUH_TEMPO) %> 
+                                                                            * <%= jspPinjaman.getErrorMsg(JspPinjaman.JSP_TANGGAL_JATUH_TEMPO) %>
+                                                                            <%rptKonstan.setJatuhTempo(pinjaman.getTanggalJatuhTempo());%>
                                                                             <tr align="left"> 
                                                                             <td height="10" colspan="4"></td>
                                                                             <tr align="left"> 
                                                                             <td height="21" width="11%">Keterangan</td>
                                                                             <td height="21" colspan="3"> 
                                                                             <textarea name="<%=jspPinjaman.colNames[JspPinjaman.JSP_DETAIL_JENIS_BARANG] %>" class="formElemen" cols="120" rows="2"><%= pinjaman.getDetailJenisBarang() %></textarea>
-                                                                            <tr align="left"> 
+                                                                            <%rptKonstan.setKeterangan(pinjaman.getDetailJenisBarang());%>
+                                                                            <tr align="left">
                                                                                 <td height="8" valign="middle" width="11%">&nbsp;</td>
                                                                                 <td height="8" width="24%" valign="top">&nbsp;</td>
                                                                                 <td height="8" width="14%" valign="top">&nbsp;</td>
@@ -1451,6 +1490,8 @@
     for (int i = 0; i < pds.size(); i++) {
         PinjamanDetail pd = (PinjamanDetail) pds.get(i);
 
+        RptAnggotaPinjamBankAnuitasL detail = new RptAnggotaPinjamBankAnuitasL();
+
         Vector bayars = DbBayarPinjaman.list(0, 0, "pinjaman_detail_id=" + pd.getOID(), "");
         BayarPinjaman bp = new BayarPinjaman();
         if (bayars != null && bayars.size() > 0) {
@@ -1466,6 +1507,20 @@
                 nextPayment = true;
             }
         }
+        detail.setAngsuran(pd.getCicilanKe());
+        detail.setAngPokokKop(pd.getAmount());
+        detail.setBungaKop(pd.getBunga());
+        detail.setTotalAngsuranKop(pd.getTotalKoperasi());
+        detail.setSaldoKop(pd.getSaldoKoperasi());
+
+        detail.setAngPokokBank(pd.getAmountBank());
+        detail.setBungaBank(pd.getBungaBank());
+        detail.setTotalAngsuranBank(pd.getTotalBank());
+        detail.setSaldoBank(pd.getSaldoBank());
+
+        detail.setTglJatuhTempo(pd.getJatuhTempo());
+
+        vTemp.add(detail);
 
         prevPaidDetail = bp.getOID();
                                                                                             %>
@@ -1892,12 +1947,13 @@
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr align="left" > 
-                                                                                <td colspan="4" valign="top"> 
+                                                                            <tr align="left" >
+                                                                                <td colspan="4" valign="top">
                                                                                     <table width="30%" border="0" cellspacing="0" cellpadding="0">
-                                                                                        <tr> 
-                                                                                            <td><img src="../images/print.gif" width="53" height="22"></td>
+                                                                                        <tr>
+                                                                                            <td><a href="javascript:cmdPrintXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a></td>
                                                                                             <td>&nbsp;</td>
+                                                                                            <td><a href="javascript:cmdPrintPdf()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('printpdf','','../images/exportpdf2.png',1)"><img src="../images/exportpdf.png" name="printpdf" border="0"></a></td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 &nbsp;</td>
@@ -1920,6 +1976,10 @@
                                                                 </tr>
                                                             </table>
                                                         </form>
+                                                        <%
+            session.putValue("KONSTAN", rptKonstan);
+            session.putValue("DETAIL", vTemp);
+                                                        %>
                                                     <!-- #EndEditable --> </td>
                                                 </tr>
                                                 <tr> 

@@ -89,6 +89,7 @@
             long oidKecamatan = JSPRequestValue.requestLong(request, "JSP_KECAMATAN_ID");
             long oidDesa = JSPRequestValue.requestLong(request, "JSP_DESA_ID");
             int stt = JSPRequestValue.requestInt(request, "JSP_STATUS");
+            int showAll = JSPRequestValue.requestInt(request, "show_all");
             
             /*variable declaration*/
             int recordToGet = 10;
@@ -97,6 +98,18 @@
             String whereClause = "";
             String orderClause = "";
 
+            String memo = "";
+            Member memberOld = new Member();
+
+            //Ambiil data lama
+            if (oidMember != 0) {
+                try {
+                    memberOld = DbMember.fetchExc(oidMember);
+                } catch (Exception e) {
+                }
+            }
+
+            //Cmd
             CmdMember ctrlMember = new CmdMember(request);
             JSPLine ctrLine = new JSPLine();
             Vector listMember = new Vector(1, 1);
@@ -126,6 +139,207 @@
             
             if (iJSPCommand == JSPCommand.SAVE && iErrCode == 0) {
                 msgString = "Data Saved";
+
+                //History User
+                if (oidMember == 0) {
+                    HistoryUser hisUser = new HistoryUser();
+                    hisUser.setUserId(user.getOID());
+                    hisUser.setEmployeeId(user.getEmployeeId());
+                    hisUser.setRefId(member.getOID());
+                    hisUser.setDescription("Anggota " + member.getNama() + " : Penambahan anggota baru");
+                    hisUser.setType(DbHistoryUser.TYPE_DATA_ANGGOTA);
+                    hisUser.setDate(new Date());
+                    try {
+                        DbHistoryUser.insertExc(hisUser);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    //Data Personal
+                    if (memberOld.getNoMember().compareTo(member.getNoMember()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " NIK : " + member.getNoMember();
+                    }
+                    if (memberOld.getNama().compareTo(member.getNama()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " nama : " + member.getNama();
+                    }
+                    if (memberOld.getTglLahir().compareTo(member.getTglLahir()) != 0) {
+                        if(memo!=null && memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " tgl lahir : " + JSPFormater.formatDate(member.getTglLahir(), "dd/MM/yyyy");
+                    }
+                    if (memberOld.getAgama().compareTo(member.getAgama()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " agama : "+member.getAgama();
+                    }
+                    if (memberOld.getPendidikan().compareTo(member.getPendidikan()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " pendidikan : " + member.getPendidikan();
+                    }
+                    if (memberOld.getTglPendidikan().compareTo(member.getTglPendidikan()) != 0) {
+                        if(memo!=null && memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " tgl pendidikan : " + JSPFormater.formatDate(member.getTglPendidikan(), "dd/MM/yyyy");
+                    }
+                    if (memberOld.getTglMasuk().compareTo(member.getTglMasuk()) != 0) {
+                        if(memo!=null && memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " tgl masuk : " + JSPFormater.formatDate(member.getTglMasuk(), "dd/MM/yyyy");
+                    }
+                    if (memberOld.getDinasUnitId() != member.getDinasUnitId()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        DinasUnit dinasUnit = new DinasUnit();
+                        try{
+                            dinasUnit = (DinasUnit) DbDinasUnit.fetchExc(member.getDinasUnitId());
+                        } catch (Exception e){
+                        }
+                        memo = memo + " dinas / unit : " + dinasUnit.getNama();
+                    }
+                    if (memberOld.getStatusPegawai() != member.getStatusPegawai()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        String statusPegawai = "";
+                        if(member.getStatusPegawai() == 0){
+                            statusPegawai = "Pegawai Aktif";
+                        } else if (member.getStatusPegawai() == 1){
+                            statusPegawai = "Pensiunan";
+                        } else {
+                            statusPegawai = "-";
+                        }
+                        memo = memo + " status pegawai : " + statusPegawai;
+                    }
+
+                    //Tanggungan
+                    if (memberOld.getNamaAhliWaris().compareTo(member.getNamaAhliWaris()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " ahli waris : "+member.getNamaAhliWaris();
+                    }
+                    if (memberOld.getNamaPenanggung().compareTo(member.getNamaPenanggung()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " penanggung : "+member.getNamaPenanggung();
+                    }
+
+                    //Alamat Personal
+                    if (memberOld.getAlamat().compareTo(member.getAlamat()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " alamat : "+member.getAlamat();
+                    }
+                    if (memberOld.getKecamatanId() != member.getKecamatanId()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        Kecamatan kecamatan = new Kecamatan();
+                        try{
+                            kecamatan = (Kecamatan) DbKecamatan.fetchExc(member.getKecamatanId());
+                        } catch (Exception e){
+                        }
+                        memo = memo + " kecamatan : "+kecamatan.getNama();
+                    }
+                    if (memberOld.getDesaId() != member.getDesaId()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        Desa desa = new Desa();
+                        try{
+                            desa = (Desa) DbDesa.fetchExc(member.getDesaId());
+                        } catch (Exception e){
+                        }
+                        memo = memo + " kecamatan : " + desa.getNama();
+                    }
+                    if (memberOld.getPhone().compareTo(member.getPhone()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " phone : " + member.getPhone();
+                    }
+                    if (memberOld.getHp().compareTo(member.getHp()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " no. hp : " + member.getHp();
+                    }
+
+                    //Alamat Kantor
+                    if (memberOld.getPekerjaanId() != member.getPekerjaanId()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        Pekerjaan pekerjaan = new Pekerjaan();
+                        try{
+                            pekerjaan = (Pekerjaan) DbPekerjaan.fetchExc(member.getPekerjaanId());
+                        } catch (Exception e){
+                        }
+                        memo = memo + " pekerjaan : " + pekerjaan.getNama();
+                    }
+                    if (memberOld.getAlamatPerusahaan().compareTo(member.getAlamatPerusahaan()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " alamat kantor : " + member.getAlamatPerusahaan();
+                    }
+                    if (memberOld.getPhonePerusahaan().compareTo(member.getPhonePerusahaan()) != 0) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " phone kantor : " + member.getPhonePerusahaan();
+                    }
+                    
+                    if (memberOld.getStatus() != member.getStatus()) {
+                        if(memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        String status = "";
+                        if(member.getStatus() == 0){
+                            status = "Tidak Aktif";
+                        } else if (member.getStatus() == 1){
+                            status = "Aktif";
+                        } else {
+                            status = "Pasif";
+                        }
+                        memo = memo + " status : " + status;
+                    }
+                    if (memberOld.getTglKeluar() != member.getTglKeluar()) {
+                        if( memo.length()>0){
+                            memo = memo + ", ";
+                        }
+                        memo = memo + " tgl keluar : "+member.getTglKeluar();
+                    }
+
+                    if (memo.length() != 0) {
+                        memo = "Perubahan data anggota "+member.getNama()+" : "+memo;
+                        HistoryUser hisUser = new HistoryUser();
+                        hisUser.setUserId(user.getOID());
+                        hisUser.setEmployeeId(user.getEmployeeId());
+                        hisUser.setRefId(member.getOID());
+                        hisUser.setDescription(memo);
+                        hisUser.setType(DbHistoryUser.TYPE_DATA_ANGGOTA);
+                        hisUser.setDate(new Date());
+                        try {
+                            DbHistoryUser.insertExc(hisUser);
+                        } catch (Exception e) {
+                        }
+                    }
+                }
             }
 
 //kecamatan dan desa
@@ -182,7 +396,20 @@
             function cmdPrint(){	
                 window.open("<%=printroot%>.print.MemberPdf?oid_member=<%=member.getOID()%>&mis=<%=System.currentTimeMillis()%>","",'scrollbars=yes,status=yes,width=750,height=600,resizable=yes');
                 }
-                
+
+                function cmdUnShowAll(){
+                    document.frmmember.command.value="<%=JSPCommand.EDIT%>";
+                    document.frmmember.show_all.value=0;
+                    document.frmmember.action="member.jsp";
+                    document.frmmember.submit();
+                }
+
+                function cmdShowAll(){
+                    document.frmmember.command.value="<%=JSPCommand.EDIT%>";
+                    document.frmmember.show_all.value=1;
+                    document.frmmember.action="member.jsp";
+                    document.frmmember.submit();
+                }
                 
                 function cmdAdd(){
                     document.frmmember.hidden_member_id.value="0";
@@ -337,6 +564,7 @@
                                                             <input type="hidden" name="command" value="<%=iJSPCommand%>">
                                                             <input type="hidden" name="vectSize" value="<%=vectSize%>">
                                                             <input type="hidden" name="start" value="<%=start%>">
+                                                            <input type="hidden" name="show_all" value="0">
                                                             <input type="hidden" name="prev_command" value="<%=prevJSPCommand%>">
                                                             <input type="hidden" name="hidden_member_id" value="<%=oidMember%>">
                                                             <input type="hidden" name="menu_idx" value="<%=menuIdx%>">
@@ -727,7 +955,7 @@
             ctrLine.setInfoStyle("success");            
             ctrLine.setSuccessImage(approot + "/images/success.gif\" width=\"20\" height=\"20");
 
-            if (privDelete) {
+            if (false) {//privDelete
                 ctrLine.setConfirmDelJSPCommand(sconDelCom);
                 ctrLine.setDeleteJSPCommand(scomDel);
                 ctrLine.setEditJSPCommand(scancel);
@@ -790,6 +1018,80 @@
                                                                                 <td height="8" colspan="2" width="35%" valign="top">&nbsp; 
                                                                                 </td>
                                                                             </tr>
+
+                                                                            <!--History User -->
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    <table width="800" >
+                                                                                        <tr>
+                                                                                            <td width="120" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Date</i></b></td>
+                                                                                            <td width="470" bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>Description</i></b></td>
+                                                                                            <td bgcolor="#F3F3F3" class="fontarial" align="center"><b><i>By</i></b></td>
+                                                                                        </tr>
+                                                                                        <%
+     int max = 10;
+     if (showAll == 1) {
+         max = 0;
+     }
+     int countx = DbHistoryUser.getCount(DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_DATA_ANGGOTA+" and " + DbHistoryUser.colNames[DbHistoryUser.COL_REF_ID] + " = " + oidMember);
+     Vector historys = DbHistoryUser.list(0, max, DbHistoryUser.colNames[DbHistoryUser.COL_TYPE] + " = " + DbHistoryUser.TYPE_DATA_ANGGOTA+" and " + DbHistoryUser.colNames[DbHistoryUser.COL_REF_ID] + " = " + oidMember, DbHistoryUser.colNames[DbHistoryUser.COL_DATE] + " desc");
+     if (historys != null && historys.size() > 0) {
+
+         for (int r = 0; r < historys.size(); r++) {
+             HistoryUser hu = (HistoryUser) historys.get(r);
+
+             Employee e = new Employee();
+             try {
+                 e = DbEmployee.fetchExc(hu.getEmployeeId());
+             } catch (Exception ex) {
+             }
+             String name = "-";
+             if (e.getName() != null && e.getName().length() > 0) {
+                 name = e.getName();
+             }
+                                                                                        %>
+                                                                                        <tr>
+                                                                                            <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="fontarial" style=padding:3px;><%=JSPFormater.formatDate(hu.getDate(), "dd MMM yyyy HH:mm:ss ")%></td>
+                                                                                            <td class="fontarial" style=padding:3px;><i><%=hu.getDescription()%></i></td>
+                                                                                            <td class="fontarial" style=padding:3px;><%=name%></td>
+                                                                                        </tr>
+                                                                                        <%
+                                                                                            }
+
+                                                                                        } else {
+                                                                                        %>
+                                                                                        <tr>
+                                                                                            <td colspan="3" class="fontarial" style=padding:3px;><i>No history available</i></td>
+                                                                                        </tr>
+                                                                                        <%}%>
+                                                                                        <tr>
+                                                                                            <td colspan="3" height="1" bgcolor="#CCCCCC"></td>
+                                                                                        </tr>
+                                                                                        <%
+     if (countx > max) {
+         if (showAll == 0) {
+                                                                                        %>
+                                                                                        <tr>
+                                                                                            <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdShowAll()"><i>Show All History (<%=countx%>) Data</i></a></td>
+                                                                                        </tr>
+                                                                                        <%
+                                                                                            } else {
+                                                                                        %>
+                                                                                        <tr>
+                                                                                            <td colspan="3" height="1" class="fontarial"><a href="javascript:cmdUnShowAll()"><i>Show By Limit</i></a></td>
+                                                                                        </tr>
+                                                                                        <%
+         }
+     }%>
+
+                                                                                    </table>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                           
                                                                             <tr align="left" > 
                                                                                 <td colspan="5" class="command" valign="top">&nbsp; 
                                                                                 </td>

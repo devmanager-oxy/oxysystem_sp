@@ -59,6 +59,7 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
     public static final int COL_COA_TITIPAN_CREDIT_ID = 34;
     public static final int COL_ANGSURAN_TERAKHIR = 35;
     public static final int COL_CREATE_DATE = 36;
+    public static final int COL_JENIS_PINJAMAN_ID = 37;
     
     public static final String[] colNames = {
         "member_id",
@@ -97,7 +98,8 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
         "coa_titipan_debet_id",
         "coa_titipan_credit_id",
         "angsuran_terakhir",
-        "create_date"
+        "create_date",
+        "jenis_pinjaman_id"
     };
     public static final int[] fieldTypes = {
         TYPE_LONG,
@@ -136,7 +138,8 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
         TYPE_LONG,
         TYPE_LONG,
         TYPE_INT,
-        TYPE_DATE
+        TYPE_DATE,
+        TYPE_LONG
     };
     public static final int TYPE_PINJAMAN_KOPERASI = 0;
     public static final int TYPE_PINJAMAN_BANK = 1;
@@ -284,6 +287,7 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
             pinjaman.setCoaTitipanCreditId(pstPinjaman.getlong(COL_COA_TITIPAN_CREDIT_ID));
             pinjaman.setAngsuranTerakhir(pstPinjaman.getInt(COL_ANGSURAN_TERAKHIR));
             pinjaman.setCreateDate(pstPinjaman.getDate(COL_CREATE_DATE));
+            pinjaman.setJenisPinjamanId(pstPinjaman.getlong(COL_JENIS_PINJAMAN_ID));
 
             return pinjaman;
         } catch (CONException dbe) {
@@ -337,6 +341,7 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
             pstPinjaman.setLong(COL_COA_TITIPAN_CREDIT_ID, pinjaman.getCoaTitipanCreditId());
             pstPinjaman.setInt(COL_ANGSURAN_TERAKHIR, pinjaman.getAngsuranTerakhir());
             pstPinjaman.setDate(COL_CREATE_DATE, pinjaman.getCreateDate());
+            pstPinjaman.setLong(COL_JENIS_PINJAMAN_ID, pinjaman.getJenisPinjamanId());
 
             pstPinjaman.insert();
             pinjaman.setOID(pstPinjaman.getlong(COL_PINJAMAN_ID));
@@ -393,6 +398,7 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
                 pstPinjaman.setLong(COL_COA_TITIPAN_CREDIT_ID, pinjaman.getCoaTitipanCreditId());
                 pstPinjaman.setInt(COL_ANGSURAN_TERAKHIR, pinjaman.getAngsuranTerakhir());
                 pstPinjaman.setDate(COL_CREATE_DATE, pinjaman.getCreateDate());
+                pstPinjaman.setLong(COL_JENIS_PINJAMAN_ID, pinjaman.getJenisPinjamanId());
 
                 pstPinjaman.update();
                 return pinjaman.getOID();
@@ -525,6 +531,7 @@ public class DbPinjaman extends CONHandler implements I_CONInterface, I_CONType,
             pinjaman.setCoaTitipanDebetId(rs.getLong(DbPinjaman.colNames[DbPinjaman.COL_COA_TITIPAN_DEBET_ID]));
             pinjaman.setCoaTitipanCreditId(rs.getLong(DbPinjaman.colNames[DbPinjaman.COL_COA_TITIPAN_CREDIT_ID]));
             pinjaman.setAngsuranTerakhir(rs.getInt(DbPinjaman.colNames[DbPinjaman.COL_ANGSURAN_TERAKHIR]));
+            pinjaman.setJenisPinjamanId(rs.getLong(DbPinjaman.colNames[DbPinjaman.COL_JENIS_PINJAMAN_ID]));
             try {
                 pinjaman.setCreateDate(CONHandler.convertDate(rs.getDate(DbPinjaman.colNames[DbPinjaman.COL_CREATE_DATE]), rs.getTime(DbPinjaman.colNames[DbPinjaman.COL_CREATE_DATE])));
             } catch (Exception e) {

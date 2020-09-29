@@ -426,7 +426,7 @@ function MM_swapImage() { //v3.0
                                             <div align="right"><b><%=JSPFormater.formatNumber(totalPinjaman-totalAngsuran, "#,###")%></b></div>
                                             <%
 											  double tSaldo = totalPinjaman-totalAngsuran; 
-											  rptKonstan.setTotalSaldoSamPiutang(totalPinjaman);
+											  rptKonstan.setTotalSaldoSamPiutang(tSaldo);
 											 %>
                                           </td>
                                         </tr>
@@ -447,9 +447,9 @@ function MM_swapImage() { //v3.0
                                       <table width="30%" border="0" cellspacing="1" cellpadding="1">
                                         <tr> 
                                           <%if(type==1){%>
-                                          <td width="9%"><a href="javascript:cmdPrintDetailXLS()"><img src="../images/print2.gif" width="53" height="22" border="0"></a></td>
+                                          <td width="9%"><a href="javascript:cmdPrintDetailXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a></td>
                                           <%}else{%>
-                                          <td width="9%"><a href="javascript:cmdPrintSumrayXLS()"><img src="../images/print2.gif" width="53" height="22" border="0"></a></td>
+                                          <td width="9%"><a href="javascript:cmdPrintSumrayXLS()"  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('close211111','','../images/printxls2.gif',1)"><img src="../images/printxls.gif" name="close211111" border="0"></a></td>
                                           <%}%>
                                         </tr>
                                       </table>
